@@ -10,6 +10,7 @@ import uuid
 from thoonk import feeds, cache
 from thoonk.exceptions import FeedExists, FeedDoesNotExist, NotListening
 
+
 class Thoonk(object):
 
     """
@@ -153,7 +154,6 @@ class Thoonk(object):
             except FeedExists:
                 pass
             return self._feeds[feed]
-
 
         setattr(self, feedtype, startclass)
 
@@ -300,12 +300,18 @@ class ThoonkListener(threading.Thread):
         """
         # listener redis object
         self._pubsub = self.redis.pubsub()
+        #if self._pubsub.connection is None:
+        #    self._pubsub.connection = self._pubsub.connection_pool.get_connection(
+        #        'pubsub'
+        #    )
         # subscribe to feed activities channel
         self._pubsub.subscribe((self._finish_channel, 'newfeed', 'delfeed', 'conffeed'))
+        self._pubsub.parse_response()
 
         # subscribe to exist feeds retract and publish
         for feed in self.redis.smembers("feeds"):
             self._pubsub.subscribe(self.thoonk._feeds[feed].get_channels())
+            self._pubsub.parse_response()
 
         self.ready.set()
         for event in self._pubsub.listen():
@@ -313,6 +319,7 @@ class ThoonkListener(threading.Thread):
             if event["channel"] == self._finish_channel:
                 if self._pubsub.subscription_count:
                     self._pubsub.unsubscribe()
+                    self._pubsub.parse_response()
             elif type == 'message':
                 self._handle_message(**event)
             elif type == 'pmessage':
@@ -326,6 +333,7 @@ class ThoonkListener(threading.Thread):
             name, _ = data.split('\x00')
             self._pubsub.subscribe(("feed.publish:"+name, "feed.edit:"+name,
                 "feed.retract:"+name, "feed.position:"+name, "job.finish:"+name))
+            self._pubsub.parse_response()
             self.emit("create", name)
 
         elif channel == 'delfeed':
