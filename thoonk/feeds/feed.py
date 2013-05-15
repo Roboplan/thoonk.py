@@ -138,18 +138,17 @@ class Feed(object):
         else:
             return self.redis.hget(self.feed_items, id)
 
-    def get_all(self, sorted=False):
+    def get_all(self):
         """Return all items from the feed."""
-        if sorted:
-            items = self.redis.hgetall(self.feed_items)
-            # import ipdb; ipdb.set_trace()
-            # ordened_items = dict()
-            ordened_items = []
-            for id in self.get_ids():
-                ordened_items.append(items[id])
-            print "ORDERED FEED: %s" % ordened_items
-            return ordened_items
         return self.redis.hgetall(self.feed_items)
+
+    def get_all_sorted(self):
+        """Return all items from the feed by it's ids score"""
+        items = self.redis.hgetall(self.feed_items)
+        sorted_items = []
+        for id in self.get_ids():
+            sorted_items.append(items[id])
+        return sorted_items
 
     def publish(self, item, id=None):
         """
