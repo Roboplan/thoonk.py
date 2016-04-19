@@ -317,7 +317,7 @@ class ThoonkListener(threading.Thread):
         for event in self._pubsub.listen():
             type = event.pop("type")
             if event["channel"] == self._finish_channel:
-                if self._pubsub.subscription_count:
+                if self._pubsub.subscribed:
                     self._pubsub.unsubscribe()
                     self._pubsub.parse_response()
             elif type == 'message':
