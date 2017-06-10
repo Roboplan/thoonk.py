@@ -1,7 +1,7 @@
 import thoonk
 from thoonk.feeds import Queue
 import unittest
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 
 class TestQueue(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestQueue(unittest.TestCase):
                                     db=conf.getint('Test', 'db'))
             self.ps.redis.flushdb()
         else:
-            print 'No test configuration found in test.cfg'
+            print('No test configuration found in test.cfg')
             exit()
 
     def test_basic_queue(self):

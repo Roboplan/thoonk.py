@@ -3,7 +3,7 @@ from thoonk.feeds import Feed, Job
 import unittest
 import time
 import redis
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 import threading
 
 class TestNotice(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestNotice(unittest.TestCase):
                                     db=conf.getint('Test', 'db'),
                                     listen=True)
         else:
-            print 'No test configuration found in test.cfg'
+            print('No test configuration found in test.cfg')
             exit()
 
     def tearDown(self):

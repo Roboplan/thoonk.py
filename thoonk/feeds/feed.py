@@ -6,9 +6,9 @@
 import time
 import uuid
 try:
-    import queue
+    from . import queue
 except ImportError:
-    import Queue as queue
+    import queue as queue
 
 from thoonk.exceptions import *
 import redis.exceptions

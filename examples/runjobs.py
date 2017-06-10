@@ -15,7 +15,7 @@ def runjobs(listen=False):
         job_channel.finish(id, query)
         x += 1
         if time.time() > starttime + 1.0:
-            print "%d/sec" % x
+            print("%d/sec" % x)
             x = 0
             starttime = time.time()
 

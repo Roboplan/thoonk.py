@@ -10,6 +10,6 @@ def testspeed(total=1):
     for x in range(1,total+1):
         j.publish(x)
     tt = time.time() - start
-    print tt, total / tt
+    print(tt, total / tt)
 
 testspeed(total=40000)

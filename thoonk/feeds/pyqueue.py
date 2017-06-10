@@ -1,4 +1,4 @@
-import cPickle
+import pickle
 
 from thoonk.exceptions import *
 from thoonk.feeds import Queue
@@ -30,7 +30,7 @@ class PythonQueue(Queue):
                         the item will be inserted at the head of the
                         queue instead of the end.
         """
-        item = cPickle.dumps(item)
+        item = pickle.dumps(item)
         return Queue.put(self, item, priority)
 
     def get(self, timeout=0):
@@ -46,4 +46,4 @@ class PythonQueue(Queue):
                        raising an exception.
         """
         value = Queue.get(self, timeout)
-        return cPickle.loads(value)
+        return pickle.loads(value)

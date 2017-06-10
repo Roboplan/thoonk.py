@@ -1,7 +1,7 @@
 import thoonk
 from thoonk.feeds import Feed
 import unittest
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 import threading
 
 class TestLeaf(unittest.TestCase):
@@ -16,7 +16,7 @@ class TestLeaf(unittest.TestCase):
                                     listen=True)
             self.ps.redis.flushdb()
         else:
-            print 'No test configuration found in test.cfg'
+            print('No test configuration found in test.cfg')
             exit()
     
     def tearDown(self):

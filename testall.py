@@ -11,14 +11,14 @@ class testoverall(unittest.TestCase):
         import compileall
         import re
         if sys.version_info < (3,0):
-            self.failUnless(compileall.compile_dir('.' + os.sep + 'thoonk', rx=re.compile('/[.]svn'), quiet=True))
+            self.assertTrue(compileall.compile_dir('.' + os.sep + 'thoonk', rx=re.compile('/[.]svn'), quiet=True))
         else:
-            self.failUnless(compileall.compile_dir('.' + os.sep + 'thoonk', rx=re.compile('/[.]svn|.*26.*'), quiet=True))
+            self.assertTrue(compileall.compile_dir('.' + os.sep + 'thoonk', rx=re.compile('/[.]svn|.*26.*'), quiet=True))
 
     def    testTabNanny(self):
         """Invoking the tabnanny"""
         import tabnanny
-        self.failIf(tabnanny.check("." + os.sep + 'thoonk'))
+        self.assertFalse(tabnanny.check("." + os.sep + 'thoonk'))
         #raise "Help!"
 
     def disabled_testMethodLength(self):
@@ -47,7 +47,7 @@ class testoverall(unittest.TestCase):
                                     methodline = lineno
                                 if line and cur and not line.strip().startswith("#") and not (cur.strip().startswith("try:") and methodindent == 0): #if we weren't all whitespace and weren't a comment
                                     methodlen += 1
-        self.failIf(offenders,"\n".join(offenders))
+        self.assertFalse(offenders,"\n".join(offenders))
 
 
 if __name__ == '__main__':
@@ -70,4 +70,4 @@ if __name__ == '__main__':
                         pass
     alltests_suite = unittest.TestSuite(alltests)
     result = unittest.TextTestRunner(verbosity=2).run(alltests_suite)
-    print("""<tests xmlns='http://andyet.net/protocol/tests' ran='%s' errors='%s' fails='%s' success='%s' />""" % (result.testsRun, len(result.errors), len(result.failures), result.wasSuccessful()))
+    print(("""<tests xmlns='http://andyet.net/protocol/tests' ran='%s' errors='%s' fails='%s' success='%s' />""" % (result.testsRun, len(result.errors), len(result.failures), result.wasSuccessful())))

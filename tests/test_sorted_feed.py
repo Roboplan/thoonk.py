@@ -1,7 +1,7 @@
 import thoonk
 from thoonk.feeds import SortedFeed
 import unittest
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 
 
 class TestLeaf(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestLeaf(unittest.TestCase):
                                     db=conf.getint('Test', 'db'))
             self.ps.redis.flushdb()
         else:
-            print 'No test configuration found in test.cfg'
+            print('No test configuration found in test.cfg')
             exit()
     
     def test_10_basic_sorted_feed(self):

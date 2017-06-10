@@ -12,7 +12,7 @@ def testspeed(total=40000):
     for x in range(1,total):
         n.publish(x, x)
     tt = time.time() - start
-    print tt, total / tt
+    print(tt, total / tt)
 
 cProfile.run('testspeed()')
 #testspeed()

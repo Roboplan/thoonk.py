@@ -94,11 +94,11 @@ class Thoonk(object):
         self.feed_retract = 'feed.retract:%s'
         self.feed_config = 'feed.config:%s'
 
-        self.register_feedtype(u'feed', feeds.Feed)
-        self.register_feedtype(u'queue', feeds.Queue)
-        self.register_feedtype(u'job', feeds.Job)
-        self.register_feedtype(u'pyqueue', feeds.PythonQueue)
-        self.register_feedtype(u'sorted_feed', feeds.SortedFeed)
+        self.register_feedtype('feed', feeds.Feed)
+        self.register_feedtype('queue', feeds.Queue)
+        self.register_feedtype('job', feeds.Job)
+        self.register_feedtype('pyqueue', feeds.PythonQueue)
+        self.register_feedtype('sorted_feed', feeds.SortedFeed)
 
         if listen:
             self.listener = ThoonkListener(self)
@@ -235,10 +235,10 @@ class Thoonk(object):
         """
         if not self.feed_exists(feed):
             raise FeedDoesNotExist
-        if u'type' not in config:
-            config[u'type'] = u'feed'
+        if 'type' not in config:
+            config['type'] = 'feed'
         pipe = self.redis.pipeline()
-        for k, v in config.iteritems():
+        for k, v in config.items():
             pipe.hset('feed.config:' + feed, k, v)
         pipe.execute()
         if new_feed:

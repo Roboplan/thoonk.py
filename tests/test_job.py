@@ -1,6 +1,6 @@
 import thoonk
 import unittest
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 import threading
 
 
@@ -15,7 +15,7 @@ class TestJob(unittest.TestCase):
                                     db=conf.getint('Test', 'db'))
             self.ps.redis.flushdb()
         else:
-            print 'No test configuration found in test.cfg'
+            print('No test configuration found in test.cfg')
             exit()
 
     def tearDown(self):
@@ -82,7 +82,7 @@ class TestJobResult(unittest.TestCase):
                                     listen=True)
             self.ps.redis.flushdb()
         else:
-            print 'No test configuration found in test.cfg'
+            print('No test configuration found in test.cfg')
             exit()
 
     def tearDown(self):
