@@ -117,7 +117,7 @@ class Feed(object):
         return set((self.feed_ids, self.feed_items, self.feed_publish,
                     self.feed_publishes, self.feed_retract, self.feed_config,
                     self.feed_edit))
-
+    
     # Thoonk Standard API
     # =================================================================
 
@@ -142,14 +142,6 @@ class Feed(object):
         """Return all items from the feed."""
         return self.redis.hgetall(self.feed_items)
 
-    def get_all_sorted(self):
-        """Return all items from the feed by it's ids score"""
-        items = self.redis.hgetall(self.feed_items)
-        sorted_items = []
-        for id in self.get_ids():
-            sorted_items.append(items[id])
-        return sorted_items
-
     def publish(self, item, id=None):
         """
         Publish an item to the feed, or replace an existing item.
@@ -168,7 +160,7 @@ class Feed(object):
         publish_id = id
         if publish_id is None:
             publish_id = uuid.uuid4().hex
-
+        
         def _publish(pipe):
             max = int(pipe.hget(self.feed_config, "max_length") or 0)
             if max > 0:
@@ -184,9 +176,9 @@ class Feed(object):
             pipe.zadd(self.feed_ids, **{publish_id: time.time()})
             pipe.incr(self.feed_publishes)
             pipe.hset(self.feed_items, publish_id, item)
-
+        
         results = self.redis.transaction(_publish, self.feed_ids)
-
+        
         if results[-3]:
             # If zadd was successful
             self.thoonk._publish(self.feed_publish, (publish_id, item))
@@ -208,5 +200,5 @@ class Feed(object):
                 pipe.zrem(self.feed_ids, id)
                 pipe.hdel(self.feed_items, id)
                 self.thoonk._publish(self.feed_retract, (id,), pipe)
-
+        
         self.redis.transaction(_retract, self.feed_ids)

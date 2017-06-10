@@ -45,13 +45,12 @@ setup(
     long_description = LONG_DESCRIPTION,
     author       = 'Nathanael Fritz and Amir Hadadi',
     author_email = 'fritzy [at] netflint.net',
-    url          = 'http://github.com/Robo-plan/thoonk.py',
+    url          = 'http://github.com/Roboplan/thoonk.py',
     license      = 'MIT',
     platforms    = [ 'any' ],
     packages     = packages,
     scripts      = ['scripts/thoonk-cli'],
     py_modules   = [],
     requires     = ['redis'],
-    install_requires     = ['redis>=2.10'],
     )
 
