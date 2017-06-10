@@ -25,7 +25,7 @@ import sys
 #
 # from setuptools import setup, find_packages, Extension, Feature
 
-VERSION          = '1.0.1.0.multmeio'
+VERSION          = '1.0.1.0.roboplan'
 DESCRIPTION      = 'Thoonk is a clusterable, Redis based, Publish-Subscribe, Queue, and Job Distrubtion system based on the philosophies of XMPP Pubsub (XEP-0060).'
 LONG_DESCRIPTION      = 'Thoonk is a clusterable, Redis based, Publish-Subscribe, Queue, and Job Distrubtion system based on the philosophies of XMPP Pubsub (XEP-0060).'
 
@@ -39,13 +39,13 @@ packages     = [ 'thoonk', 'thoonk/feeds' ]
 
 
 setup(
-    name             = "thoonk",
+    name             = "thoonk3",
     version          = VERSION,
     description      = DESCRIPTION,
     long_description = LONG_DESCRIPTION,
-    author       = 'Nathanael Fritz',
+    author       = 'Nathanael Fritz and Amir Hadadi',
     author_email = 'fritzy [at] netflint.net',
-    url          = 'http://github.com/fritzy/thoonk.py',
+    url          = 'http://github.com/Robo-plan/thoonk.py',
     license      = 'MIT',
     platforms    = [ 'any' ],
     packages     = packages,
