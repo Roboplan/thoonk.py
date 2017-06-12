@@ -80,7 +80,7 @@ class Thoonk(object):
         self.host = host
         self.port = port
         self.db = db
-        self.redis = redis.StrictRedis(host=self.host, port=self.port, db=self.db)
+        self.redis = redis.StrictRedis(host=self.host, port=self.port, db=self.db, charset="utf-8", decode_responses=True)
         self._feeds = cache.FeedCache(self)
         self.instance = uuid.uuid4().hex
 
@@ -305,6 +305,7 @@ class ThoonkListener(threading.Thread):
         self._pubsub.subscribe((self._finish_channel, 'newfeed', 'delfeed', 'conffeed'))
 
         # subscribe to exist feeds retract and publish
+        print(self.thoonk._feeds)
         for feed in self.redis.smembers("feeds"):
             self._pubsub.subscribe(self.thoonk._feeds[feed].get_channels())
 
