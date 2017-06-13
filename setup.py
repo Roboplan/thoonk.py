@@ -49,6 +49,10 @@ setup(
     license      = 'MIT',
     platforms    = [ 'any' ],
     packages     = packages,
+    install_requires=[
+        'redis>=2.2.4',
+        'hiredis'
+    ],
     scripts      = ['scripts/thoonk-cli'],
     py_modules   = [],
     requires     = ['redis'],

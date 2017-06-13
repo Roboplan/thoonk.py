@@ -7,6 +7,7 @@ thoonk/pubsub.py
 thoonk.egg-info/PKG-INFO
 thoonk.egg-info/SOURCES.txt
 thoonk.egg-info/dependency_links.txt
+thoonk.egg-info/requires.txt
 thoonk.egg-info/top_level.txt
 thoonk/feeds/__init__.py
 thoonk/feeds/feed.py
