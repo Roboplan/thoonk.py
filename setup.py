@@ -39,7 +39,7 @@ packages     = [ 'thoonk', 'thoonk/feeds' ]
 
 
 setup(
-    name             = "thoonk3",
+    name             = "thoonk",
     version          = VERSION,
     description      = DESCRIPTION,
     long_description = LONG_DESCRIPTION,
