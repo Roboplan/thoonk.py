@@ -280,7 +280,8 @@ class ThoonkListener(threading.Thread):
         self.handlers = {}
         self.thoonk = thoonk
         self.ready = threading.Event()
-        self.redis = redis.StrictRedis(host=thoonk.host, port=thoonk.port, db=thoonk.db)
+        self.redis = redis.StrictRedis(host=thoonk.host, port=thoonk.port, db=thoonk.db,
+                                       charset="utf-8", decode_responses=True)
         self.finished = threading.Event()
         self.instance = thoonk.instance
         self._finish_channel = "listenerclose_%s" % self.instance
@@ -349,6 +350,7 @@ class ThoonkListener(threading.Thread):
         elif channel.startswith('feed.publish'):
             #feed publish event
             id, item = data.split('\x00', 1)
+            print("?????????????????????????????????????????????????????????????????????????????????????????????????????????????????2")
             self.emit("publish", channel.split(':', 1)[-1], item, id)
 
         elif channel.startswith('feed.edit'):
@@ -365,6 +367,7 @@ class ThoonkListener(threading.Thread):
 
         elif channel.startswith('job.finish'):
             id, result = data.split('\x00', 1)
+            print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!2")
             self.emit("finish", channel.split(':', 1)[-1], id, result)
         
     def emit(self, event, *args):
