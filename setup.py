@@ -50,8 +50,8 @@ setup(
     platforms    = [ 'any' ],
     packages     = packages,
     install_requires=[
-        'redis>=2.2.4',
-        'hiredis'
+        'redis==2.10.6',
+        'hiredis==0.2.0'
     ],
     scripts      = ['scripts/thoonk-cli'],
     py_modules   = [],
